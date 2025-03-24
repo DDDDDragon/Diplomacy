@@ -264,8 +264,6 @@ namespace Diplomacy.Content.Factions.FactionRelations
 
             var faction = TradeSession.trader.Faction;
 
-            Log.Message(faction == null ? "null" : "nonNull");
-
             var flag = BindingFlags.Instance | BindingFlags.NonPublic;
 
             if (!__instance.HasAnyThing)

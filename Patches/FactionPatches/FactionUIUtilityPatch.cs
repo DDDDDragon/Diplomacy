@@ -51,7 +51,6 @@ namespace Diplomacy.Patches.FactionPatches
             }
         }
 
-        [HarmonyDebug]
         public static IEnumerable<CodeInstruction> DrawFactionRowTranspiler(IEnumerable<CodeInstruction> instructions, ILGenerator ilg)
         {
             var codes = new List<CodeInstruction>(instructions);
