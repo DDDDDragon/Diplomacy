@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Verse;
 
-namespace Diplomacy.Content.Faction.DefExtensions
+namespace Diplomacy.Content.Factions.DefExtensions
 {
     public class FactionDefExtension : DefModExtension
     {

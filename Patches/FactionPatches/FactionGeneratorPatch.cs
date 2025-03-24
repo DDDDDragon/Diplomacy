@@ -4,11 +4,11 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using Verse;
-using Diplomacy.Content.Faction.DefExtensions;
+using Diplomacy.Content.Factions.DefExtensions;
 using Diplomacy.Patches.FactionPatches.Custom;
 using System.Linq;
 using System;
-using Diplomacy.Content.Faction;
+using Diplomacy.Content.Factions;
 
 namespace Diplomacy.Patches.FactionPatches
 {

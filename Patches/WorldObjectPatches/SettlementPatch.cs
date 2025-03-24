@@ -5,6 +5,7 @@ using HarmonyLib;
 using RimWorld.Planet;
 using Verse;
 using System.Linq;
+using Diplomacy.Utils;
 
 namespace Diplomacy.Patches.WorldObjectPatches
 {
@@ -25,9 +26,9 @@ namespace Diplomacy.Patches.WorldObjectPatches
 
             var relation = faction.RelationKindWith(caravan.Faction);
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(relation))
+            if (FactionRelationUtils.CustomFactionRelationKindExist(relation))
             {
-                var kind = CustomFactionRelationKindManager.GetCustomFactionRelation(relation);
+                var kind = FactionRelationUtils.GetCustomFactionRelationKind(relation);
 
                 foreach (var option in kind.GetSettlementCaravanFloatMenuOptions(__instance, caravan))
                 {

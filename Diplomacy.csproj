@@ -52,13 +52,22 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.IMGUIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\Faction\BaseCustomFaction.cs" />
-    <Compile Include="Content\Faction\DefExtensions\FactionDefExtension.cs" />
-    <Compile Include="Content\Faction\FactionRelation\TestRelation.cs" />
-    <Compile Include="Content\Faction\FactionRelation\TestRelation2.cs" />
-    <Compile Include="Content\Faction\TestFaction.cs" />
+    <Compile Include="Content\CaravanArrivalActions\TaxationCaravanArrivalAction.cs" />
+    <Compile Include="Content\Factions\BaseCustomFaction.cs" />
+    <Compile Include="Content\Factions\DefExtensions\FactionDefExtension.cs" />
+    <Compile Include="Content\Factions\FactionRelations\VassalRelation.cs" />
+    <Compile Include="Content\Factions\FactionRelations\SuzerainRelation.cs" />
+    <Compile Include="Content\Factions\TestFaction.cs" />
+    <Compile Include="Content\GameComponents\Vassal\VassalChecks.cs" />
+    <Compile Include="Content\GameComponents\Vassal\VassalData.cs" />
+    <Compile Include="Content\Incidents\Workers\TaxationRaising.cs" />
     <Compile Include="Diplomacy.cs" />
     <Compile Include="Patches\FactionPatches\FactionDialogMakerPatch.cs" />
     <Compile Include="Patches\FactionPatches\Custom\CustomFaction.cs" />
@@ -70,9 +79,15 @@
     <Compile Include="Patches\FactionPatches\FactionRelationKindUtilityPatch.cs" />
     <Compile Include="Patches\FactionPatches\Custom\CustomFactionRelationKindManager.cs" />
     <Compile Include="Patches\FactionPatches\FactionRelationPatch.cs" />
+    <Compile Include="Patches\FactionPatches\FactionUIUtilityPatch.cs" />
+    <Compile Include="Patches\FactionPatches\TradeUtilityPatch.cs" />
+    <Compile Include="Patches\FactionPatches\TradeablePatch.cs" />
     <Compile Include="Patches\WorldObjectPatches\SettlementPatch.cs" />
     <Compile Include="Patches\WorldObjectPatches\SitePatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\FactionRelationUtils.cs" />
+    <Compile Include="Utils\FactionUIUtils.cs" />
+    <Compile Include="Utils\ThingUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

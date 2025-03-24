@@ -22,13 +22,13 @@ namespace Diplomacy.Patches.FactionPatches
                 prefix: new HarmonyMethod(typeof(FactionRelationPatch), nameof(PreCheckKindThresholds)));
         }
 
-        public static bool PreCheckKindThresholds(Faction faction, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter)
+        public static bool PreCheckKindThresholds(FactionRelation __instance, Faction faction, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter)
         {
             sentLetter = false;
 
             if (faction is CustomFaction customFaction)
             {
-                customFaction.CheckKindThresholds(canSendLetter, reason, lookTarget, out var sent);
+                customFaction.CheckKindThresholds(ref __instance, canSendLetter, reason, lookTarget, out var sent);
 
                 sentLetter = sent;
 

@@ -50,7 +50,7 @@ namespace Diplomacy.Patches.FactionPatches.Custom
             return this;
         }
 
-        public virtual void CheckKindThresholds(bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter) { sentLetter = false; }
+        public virtual void CheckKindThresholds(ref FactionRelation relation, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter) { sentLetter = false; }
 
         public virtual bool PreTryAffectGoodwillWith(Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null) { return true; }
     }

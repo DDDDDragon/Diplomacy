@@ -29,27 +29,27 @@ namespace Diplomacy.Patches.FactionPatches
             }
         }
 
-        public static Dictionary<CustomFactionRelationKind, int> CustomRelations = new Dictionary<CustomFactionRelationKind, int>();
+        internal static Dictionary<CustomFactionRelationKind, int> CustomRelations = new Dictionary<CustomFactionRelationKind, int>();
 
-        public static bool CustomRelationExist(int kind) => CustomRelations.ContainsValue(kind);
+        internal static bool CustomFactionRelationKindExist(int kind) => CustomRelations.ContainsValue(kind);
 
-        public static bool CustomRelationExist(FactionRelationKind kind) => CustomRelationExist((int)kind);
+        internal static bool CustomFactionRelationKindExist(FactionRelationKind kind) => CustomFactionRelationKindExist((int)kind);
 
-        public static CustomFactionRelationKind GetCustomFactionRelation(string ID) => 
+        internal static CustomFactionRelationKind GetCustomFactionRelationKind(string ID) => 
             CustomRelations.Keys.FirstOrDefault(r => r.ID == ID);
 
-        public static CustomFactionRelationKind GetCustomFactionRelation<T>() where T : CustomFactionRelationKind => 
+        internal static CustomFactionRelationKind GetCustomFactionRelationKind<T>() where T : CustomFactionRelationKind => 
             CustomRelations.Keys.FirstOrDefault(r => r.GetType() == typeof(T));
 
-        public static CustomFactionRelationKind GetCustomFactionRelation(int kind) =>
+        internal static CustomFactionRelationKind GetCustomFactionRelationKind(int kind) =>
             CustomRelations.Where(p => p.Value == kind).Count() == 0 ? null : CustomRelations.FirstOrDefault(p => p.Value == kind).Key;
 
-        public static CustomFactionRelationKind GetCustomFactionRelation(FactionRelationKind kind) => GetCustomFactionRelation((int)kind);
+        internal static CustomFactionRelationKind GetCustomFactionRelationKind(FactionRelationKind kind) => GetCustomFactionRelationKind((int)kind);
 
-        public static FactionRelationKind GetCustomFactionRelationKind(string ID) => 
-            (FactionRelationKind)(GetCustomFactionRelation(ID) == null ? -1 : CustomRelations[GetCustomFactionRelation(ID)]);
+        internal static FactionRelationKind GetFactionRelationKind(string ID) => 
+            (FactionRelationKind)(GetCustomFactionRelationKind(ID) == null ? -1 : CustomRelations[GetCustomFactionRelationKind(ID)]);
 
-        public static FactionRelationKind GetCustomFactionRelationKind<T>() where T : CustomFactionRelationKind => 
-            (FactionRelationKind)(GetCustomFactionRelation<T>() == null ? -1 : CustomRelations[GetCustomFactionRelation<T>()]);
+        internal static FactionRelationKind GetFactionRelationKind<T>() where T : CustomFactionRelationKind => 
+            (FactionRelationKind)(GetCustomFactionRelationKind<T>() == null ? -1 : CustomRelations[GetCustomFactionRelationKind<T>()]);
     }
 }

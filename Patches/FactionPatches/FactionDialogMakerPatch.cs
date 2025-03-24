@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using Verse;
 using Diplomacy.Patches.FactionPatches.Custom;
+using Diplomacy.Utils;
 
 namespace Diplomacy.Patches
 {
@@ -48,7 +49,7 @@ namespace Diplomacy.Patches
 
                     yield return new CodeInstruction(
                         OpCodes.Call,
-                        typeof(CustomFactionRelationKindManager).GetMethod(nameof(CustomFactionRelationKindManager.CustomRelationExist), [typeof(FactionRelationKind)])
+                        typeof(FactionRelationUtils).GetMethod(nameof(FactionRelationUtils.CustomFactionRelationKindExist), [typeof(FactionRelationKind)])
                     );
 
                     yield return new CodeInstruction(OpCodes.Brfalse, skip);
@@ -159,32 +160,32 @@ namespace Diplomacy.Patches
         {
             var relationKind = faction.PlayerRelationKind;
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(relationKind))
-                CustomFactionRelationKindManager.GetCustomFactionRelation(relationKind).FactionDialogFor(ref root, negotiator, faction);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+                FactionRelationUtils.GetCustomFactionRelationKind(relationKind).FactionDialogFor(ref root, negotiator, faction);
         }
 
         public static void RequestMilitaryAidOption(ref DiaOption diaOption, Map map, Faction faction, Pawn negotiator)
         {
             var relationKind = faction.PlayerRelationKind;
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(relationKind))
-                CustomFactionRelationKindManager.GetCustomFactionRelation(relationKind).RequestMilitaryAidOption(ref diaOption, map, faction, negotiator);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+                FactionRelationUtils.GetCustomFactionRelationKind(relationKind).RequestMilitaryAidOption(ref diaOption, map, faction, negotiator);
         }
 
         public static void RequestTraderOption(ref DiaOption diaOption, Map map, Faction faction, Pawn negotiator)
         {
             var relationKind = faction.PlayerRelationKind;
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(relationKind))
-                CustomFactionRelationKindManager.GetCustomFactionRelation(relationKind).RequestTraderOption(ref diaOption, map, faction, negotiator);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+                FactionRelationUtils.GetCustomFactionRelationKind(relationKind).RequestTraderOption(ref diaOption, map, faction, negotiator);
         }
 
         public static DiaOption RequestCustomOption(Map map, Faction faction, Pawn negotiator)
         {
             var relationKind = faction.PlayerRelationKind;
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(relationKind))
-                return CustomFactionRelationKindManager.GetCustomFactionRelation(relationKind).RequestCustomOption(map, faction, negotiator);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+                return FactionRelationUtils.GetCustomFactionRelationKind(relationKind).RequestCustomOption(map, faction, negotiator);
 
             return new();
         }

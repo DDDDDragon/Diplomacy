@@ -1,4 +1,5 @@
 ﻿using Diplomacy.Patches.FactionPatches;
+using Diplomacy.Utils;
 using HarmonyLib;
 using RimWorld.Planet;
 using System;
@@ -27,9 +28,9 @@ namespace Diplomacy.Patches.WorldObjectPatches
 
             var relation = faction.RelationKindWith(__instance.Faction);
 
-            if(CustomFactionRelationKindManager.CustomRelationExist(relation))
+            if(FactionRelationUtils.CustomFactionRelationKindExist(relation))
             {
-                var kind = CustomFactionRelationKindManager.GetCustomFactionRelation(relation);
+                var kind = CustomFactionRelationKindManager.GetCustomFactionRelationKind(relation);
 
                 foreach (var option in kind.GetSiteCaravanFloatMenuOptions(__instance, caravan))
                 {

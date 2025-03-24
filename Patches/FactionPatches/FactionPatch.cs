@@ -1,4 +1,5 @@
 ﻿using Diplomacy.Patches.FactionPatches.Custom;
+using Diplomacy.Utils;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
@@ -33,11 +34,11 @@ namespace Diplomacy.Patches.FactionPatches
 
         public static void PostTryAppendRelationKindChangedInfo(ref TaggedString text, FactionRelationKind previousKind, FactionRelationKind newKind, string reason = null)
         {
-            if (CustomFactionRelationKindManager.CustomRelationExist(previousKind))
-                CustomFactionRelationKindManager.GetCustomFactionRelation(previousKind).RelationKindChangedTo(newKind, ref text, reason);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(previousKind))
+                FactionRelationUtils.GetCustomFactionRelationKind(previousKind).RelationKindChangedTo(newKind, ref text, reason);
 
-            if (CustomFactionRelationKindManager.CustomRelationExist(newKind))
-                CustomFactionRelationKindManager.GetCustomFactionRelation(newKind).RelationKindChangedFrom(previousKind, ref text, reason);
+            if (FactionRelationUtils.CustomFactionRelationKindExist(newKind))
+                FactionRelationUtils.GetCustomFactionRelationKind(newKind).RelationKindChangedFrom(previousKind, ref text, reason);
         }
 
         public static bool PreTryAffectGoodwillWith(Faction __instance, Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null)
@@ -57,24 +58,28 @@ namespace Diplomacy.Patches.FactionPatches
 
             var kd2 = factionRelation2.kind;
 
-            if(CustomFactionRelationKindManager.CustomRelationExist(kd1) && __instance.IsPlayer)
+            if(FactionRelationUtils.CustomFactionRelationKindExist(kd1))
             {
-                var kind = CustomFactionRelationKindManager.GetCustomFactionRelation(kd1);
+                var kind = FactionRelationUtils.GetCustomFactionRelationKind(kd1);
+
+                Log.Message(kind.ID);
 
                 var legalID = kind.LegalAnotherFactionRelationKindID;
 
-                if (legalID == "" || CustomFactionRelationKindManager.GetCustomFactionRelation(legalID) == null) 
+                if (legalID == "" || FactionRelationUtils.GetCustomFactionRelationKind(legalID) == null) 
                     return false;
 
                 var otherID = "";
 
-                if (!CustomFactionRelationKindManager.CustomRelationExist(kd2))
+                if (!FactionRelationUtils.CustomFactionRelationKindExist(kd2))
                     otherID = Enum.GetName(typeof(FactionRelationKind), kd2);
-                else otherID = CustomFactionRelationKindManager.GetCustomFactionRelation(kd2).ID;
+                else otherID = FactionRelationUtils.GetCustomFactionRelationKind(kd2).ID;
 
                 if (legalID != otherID)
                 {
-                    factionRelation2.kind = CustomFactionRelationKindManager.GetCustomFactionRelationKind(legalID);
+                    Log.Message(legalID);
+
+                    factionRelation2.kind = FactionRelationUtils.GetFactionRelationKind(legalID);
 
                     var rea = kind.AnotherFactionRelationKindChangedReason(other, canSendHostilityLetter, lookTarget);
 
@@ -86,7 +91,7 @@ namespace Diplomacy.Patches.FactionPatches
                     other.Notify_RelationKindChanged(__instance, factionRelation2.kind, canSendHostilityLetter, rea, lookTarget ?? GlobalTargetInfo.Invalid, out flag);
                 }
             }
-            else if (kd1 != kd2 && !CustomFactionRelationKindManager.CustomRelationExist(kd2))
+            else if (kd1 != kd2 && !FactionRelationUtils.CustomFactionRelationKindExist(kd2))
             {
                 factionRelation2.kind = kd1;
 

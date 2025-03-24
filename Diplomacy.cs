@@ -1,12 +1,13 @@
-﻿using Diplomacy.Content.Faction;
-using Diplomacy.Patches.FactionPatches.Custom;
+﻿using Diplomacy.Content.Factions;
 using HarmonyLib;
 using LudeonTK;
 using RimWorld;
 using System.Reflection;
 using System.Collections.Generic;
 using Verse;
-using System.Net;
+using Diplomacy.Content.Factions.FactionRelations;
+using Diplomacy.Utils;
+using Diplomacy.Content.GameComponents.Vassal;
 
 namespace Diplomacy
 {
@@ -16,7 +17,13 @@ namespace Diplomacy
 
         public Diplomacy(ModContentPack content) : base(content) 
         {
-
+            LongEventHandler.ExecuteWhenFinished(() =>
+            {
+                if (Current.Game != null)
+                {
+                    Current.Game.GetComponent<VassalChecks>();
+                }
+            });
         }
 
         [DebugAction("Showcase", "Diplomacy", actionType = DebugActionType.ToolMap)]
@@ -33,8 +40,10 @@ namespace Diplomacy
                     foreach (var relation in relations)
                     {
                         if (relation.other.IsPlayer)
-                            relation.kind = (FactionRelationKind)3;
+                            FactionRelationUtils.GetCustomFactionRelationKind<VassalRelation>().SetRelation(relation);
                     }
+
+                    VassalChecks.AddNewVassal(faction);
                 }
             }
         }

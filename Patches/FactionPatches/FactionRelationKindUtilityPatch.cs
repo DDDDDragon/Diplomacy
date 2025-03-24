@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HarmonyLib;
 using RimWorld;
 using Verse;
+using Diplomacy.Utils;
 
 namespace Diplomacy.Patches.FactionPatches
 {
@@ -25,19 +26,19 @@ namespace Diplomacy.Patches.FactionPatches
         public static void GetLabel(this FactionRelationKind kind, ref string __result)
         {
             if (__result == "error")
-                __result = CustomFactionRelationKindManager.CustomRelationExist(kind) ? CustomFactionRelationKindManager.GetCustomFactionRelation(kind).GetLabel() : "error";
+                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetLabel() : "error";
         }
 
         public static void GetLabelCap(this FactionRelationKind kind, ref string __result)
         {
             if (__result == "error")
-                __result = CustomFactionRelationKindManager.CustomRelationExist(kind) ? CustomFactionRelationKindManager.GetCustomFactionRelation(kind).GetLabelCap() : "error"; ;
+                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetLabelCap() : "error"; ;
         }
 
         public static void GetColor(this FactionRelationKind kind, ref Color __result)
         {
             if(__result == Color.white)
-                __result = CustomFactionRelationKindManager.CustomRelationExist(kind) ? CustomFactionRelationKindManager.GetCustomFactionRelation(kind).GetColor() : Color.white;
+                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetColor() : Color.white;
         }
     }
 }
