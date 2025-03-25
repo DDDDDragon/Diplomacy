@@ -26,9 +26,13 @@ namespace Diplomacy.Patches.FactionPatches
 
         public virtual string GetLabelCap() => $"{ID}".Translate();
 
+        public virtual bool AffectedByGoodwill => true;
+
         public virtual string Tip(Faction faction) => "";
 
         public virtual Color GetColor() => Color.white;
+
+        public virtual bool CheckChangeTo(ref FactionRelation relation, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter, out FactionRelationKind kind) { sentLetter = false; kind = (FactionRelationKind)(-1); return false; }
 
         public virtual void RelationKindChangedFrom(FactionRelationKind kind, ref TaggedString text, string reason = null) { }
 

@@ -31,9 +31,24 @@ namespace Diplomacy.Patches.FactionPatches
 
         internal static Dictionary<CustomFactionRelationKind, int> CustomRelations = new Dictionary<CustomFactionRelationKind, int>();
 
-        internal static bool CustomFactionRelationKindExist(int kind) => CustomRelations.ContainsValue(kind);
+        internal static bool CustomFactionRelationKindExist(int kind, out CustomFactionRelationKind custom)
+        {
+            if (CustomRelations.ContainsValue(kind))
+            {
+                custom = GetCustomFactionRelationKind(kind);
 
-        internal static bool CustomFactionRelationKindExist(FactionRelationKind kind) => CustomFactionRelationKindExist((int)kind);
+                return true;
+            }
+            else
+            {
+                custom = null;
+
+                return false;
+            }
+
+        }
+
+        internal static bool CustomFactionRelationKindExist(FactionRelationKind kind, out CustomFactionRelationKind custom) => CustomFactionRelationKindExist((int)kind, out custom);
 
         internal static CustomFactionRelationKind GetCustomFactionRelationKind(string ID) => 
             CustomRelations.Keys.FirstOrDefault(r => r.ID == ID);

@@ -28,11 +28,7 @@ namespace Diplomacy.Patches.FactionPatches
 
             if (faction is CustomFaction customFaction)
             {
-                customFaction.CheckKindThresholds(ref __instance, canSendLetter, reason, lookTarget, out var sent);
-
-                sentLetter = sent;
-
-                return false;
+                return customFaction.PreCheckKindThresholds(ref __instance, canSendLetter, reason, lookTarget, out sentLetter);
             }
 
             return true;

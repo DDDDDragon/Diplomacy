@@ -28,11 +28,9 @@ namespace Diplomacy.Patches.WorldObjectPatches
 
             var relation = faction.RelationKindWith(__instance.Faction);
 
-            if(FactionRelationUtils.CustomFactionRelationKindExist(relation))
+            if(FactionRelationUtils.TryGetCustomFactionRelationKind(relation, out var custom))
             {
-                var kind = CustomFactionRelationKindManager.GetCustomFactionRelationKind(relation);
-
-                foreach (var option in kind.GetSiteCaravanFloatMenuOptions(__instance, caravan))
+                foreach (var option in custom.GetSiteCaravanFloatMenuOptions(__instance, caravan))
                 {
                     __result.Append(option);
                 }

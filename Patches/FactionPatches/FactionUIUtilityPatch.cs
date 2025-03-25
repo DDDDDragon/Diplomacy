@@ -29,10 +29,8 @@ namespace Diplomacy.Patches.FactionPatches
         {
             var relationKind = faction.IsPlayer ? -1 : (int)faction.PlayerRelationKind;
 
-            if(FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+            if(FactionRelationUtils.TryGetCustomFactionRelationKind(relationKind, out var custom))
             {
-                var custom = FactionRelationUtils.GetCustomFactionRelationKind(relationKind);
-
                 return custom.PreDrawFactionRow(ref __result, faction, rowY, fillRect);
             }
 
@@ -43,10 +41,8 @@ namespace Diplomacy.Patches.FactionPatches
         {
             var relationKind = faction.IsPlayer ? -1 : (int)faction.PlayerRelationKind;
 
-            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+            if (FactionRelationUtils.TryGetCustomFactionRelationKind(relationKind, out var custom))
             {
-                var custom = FactionRelationUtils.GetCustomFactionRelationKind(relationKind);
-
                 custom.PostDrawFactionRow(ref __result, faction, rowY, fillRect);
             }
         }
@@ -89,10 +85,8 @@ namespace Diplomacy.Patches.FactionPatches
         {
             var relationKind = faction.IsPlayer ? -1 : (int)faction.PlayerRelationKind;
 
-            if (FactionRelationUtils.CustomFactionRelationKindExist(relationKind))
+            if (FactionRelationUtils.TryGetCustomFactionRelationKind(relationKind, out var custom))
             {
-                var custom = FactionRelationUtils.GetCustomFactionRelationKind(relationKind);
-
                 return custom.Tip(faction);
             }
 

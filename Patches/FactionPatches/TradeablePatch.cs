@@ -25,10 +25,8 @@ namespace Diplomacy.Patches.FactionPatches
             {
                 var relation = faction.PlayerRelationKind;
 
-                if (FactionRelationUtils.CustomFactionRelationKindExist(relation))
+                if (FactionRelationUtils.TryGetCustomFactionRelationKind(relation, out var custom))
                 {
-                    var custom = FactionRelationUtils.GetCustomFactionRelationKind(relation);
-
                     return custom.PreGetPriceTooltip(ref __result, ref __instance, action);
                 }
             }
@@ -44,10 +42,8 @@ namespace Diplomacy.Patches.FactionPatches
             {
                 var relation = faction.PlayerRelationKind;
 
-                if (FactionRelationUtils.CustomFactionRelationKindExist(relation))
+                if (FactionRelationUtils.TryGetCustomFactionRelationKind(relation, out var custom))
                 {
-                    var custom = FactionRelationUtils.GetCustomFactionRelationKind(relation);
-
                     custom.PostGetPriceTooltip(ref __result, ref __instance, action);
                 }
             }

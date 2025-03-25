@@ -64,7 +64,6 @@
     <Compile Include="Content\Factions\DefExtensions\FactionDefExtension.cs" />
     <Compile Include="Content\Factions\FactionRelations\VassalRelation.cs" />
     <Compile Include="Content\Factions\FactionRelations\SuzerainRelation.cs" />
-    <Compile Include="Content\Factions\TestFaction.cs" />
     <Compile Include="Content\GameComponents\Vassal\VassalChecks.cs" />
     <Compile Include="Content\GameComponents\Vassal\VassalData.cs" />
     <Compile Include="Content\Incidents\Workers\TaxationRaising.cs" />

@@ -41,9 +41,9 @@ namespace Diplomacy.Patches.FactionPatches
                 FactionRelationUtils.GetCustomFactionRelationKind(newKind).RelationKindChangedFrom(previousKind, ref text, reason);
         }
 
-        public static bool PreTryAffectGoodwillWith(Faction __instance, Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null)
+        public static bool PreTryAffectGoodwillWith(ref bool __result, Faction __instance, Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null)
         {
-            return (__instance as CustomFaction).PreTryAffectGoodwillWith(other, goodwillChange, canSendMessage, canSendHostilityLetter, reason, lookTarget);
+            return (__instance as CustomFaction).PreTryAffectGoodwillWith(ref __result, other, goodwillChange, canSendMessage, canSendHostilityLetter, reason, lookTarget);
         }
 
         public static bool PreNotify_GoodwillSituationsChanged(Faction __instance, Faction other, bool canSendHostilityLetter, string reason, GlobalTargetInfo? lookTarget)
@@ -58,13 +58,11 @@ namespace Diplomacy.Patches.FactionPatches
 
             var kd2 = factionRelation2.kind;
 
-            if(FactionRelationUtils.CustomFactionRelationKindExist(kd1))
+            if(FactionRelationUtils.TryGetCustomFactionRelationKind(kd1, out var custom))
             {
-                var kind = FactionRelationUtils.GetCustomFactionRelationKind(kd1);
+                Log.Message(custom.ID);
 
-                Log.Message(kind.ID);
-
-                var legalID = kind.LegalAnotherFactionRelationKindID;
+                var legalID = custom.LegalAnotherFactionRelationKindID;
 
                 if (legalID == "" || FactionRelationUtils.GetCustomFactionRelationKind(legalID) == null) 
                     return false;
@@ -81,12 +79,12 @@ namespace Diplomacy.Patches.FactionPatches
 
                     factionRelation2.kind = FactionRelationUtils.GetFactionRelationKind(legalID);
 
-                    var rea = kind.AnotherFactionRelationKindChangedReason(other, canSendHostilityLetter, lookTarget);
+                    var rea = custom.AnotherFactionRelationKindChangedReason(other, canSendHostilityLetter, lookTarget);
 
-                    factionRelation2.baseGoodwill = Math.Max(factionRelation2.baseGoodwill, kind.MinGoodwill);
+                    factionRelation2.baseGoodwill = Math.Max(factionRelation2.baseGoodwill, custom.MinGoodwill);
 
-                    if(kind.MinGoodwill < kind.MaxGoodwill)
-                        factionRelation2.baseGoodwill = Math.Min(factionRelation.baseGoodwill, kind.MaxGoodwill);
+                    if(custom.MinGoodwill < custom.MaxGoodwill)
+                        factionRelation2.baseGoodwill = Math.Min(factionRelation.baseGoodwill, custom.MaxGoodwill);
 
                     other.Notify_RelationKindChanged(__instance, factionRelation2.kind, canSendHostilityLetter, rea, lookTarget ?? GlobalTargetInfo.Invalid, out flag);
                 }

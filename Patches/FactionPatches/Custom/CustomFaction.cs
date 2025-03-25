@@ -50,8 +50,10 @@ namespace Diplomacy.Patches.FactionPatches.Custom
             return this;
         }
 
-        public virtual void CheckKindThresholds(ref FactionRelation relation, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter) { sentLetter = false; }
+        public virtual bool PreCheckKindThresholds(ref FactionRelation relation, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter) { sentLetter = false; return true; }
 
-        public virtual bool PreTryAffectGoodwillWith(Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null) { return true; }
+        public virtual bool PreTryAffectGoodwillWith(ref bool __result, Faction other, int goodwillChange, bool canSendMessage = true, bool canSendHostilityLetter = true, HistoryEventDef reason = null, GlobalTargetInfo? lookTarget = null) { return true; }
+    
+        public virtual void Notify_CustomRelationKindChanged(Faction other, FactionRelationKind previousKind, FactionRelationKind kind, bool canSendLetter, string reason, GlobalTargetInfo lookTarget, out bool sentLetter) { sentLetter = false; }
     }
 }

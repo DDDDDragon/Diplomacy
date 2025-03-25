@@ -26,19 +26,19 @@ namespace Diplomacy.Patches.FactionPatches
         public static void GetLabel(this FactionRelationKind kind, ref string __result)
         {
             if (__result == "error")
-                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetLabel() : "error";
+                __result = FactionRelationUtils.TryGetCustomFactionRelationKind(kind, out var custom) ? custom.GetLabel() : "error";
         }
 
         public static void GetLabelCap(this FactionRelationKind kind, ref string __result)
         {
             if (__result == "error")
-                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetLabelCap() : "error"; ;
+                __result = FactionRelationUtils.TryGetCustomFactionRelationKind(kind, out var custom) ? custom.GetLabelCap() : "error"; ;
         }
 
         public static void GetColor(this FactionRelationKind kind, ref Color __result)
         {
             if(__result == Color.white)
-                __result = FactionRelationUtils.CustomFactionRelationKindExist(kind) ? FactionRelationUtils.GetCustomFactionRelationKind(kind).GetColor() : Color.white;
+                __result = FactionRelationUtils.TryGetCustomFactionRelationKind(kind, out var custom) ? custom.GetColor() : Color.white;
         }
     }
 }

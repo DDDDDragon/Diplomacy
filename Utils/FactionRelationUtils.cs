@@ -17,8 +17,12 @@ namespace Diplomacy.Utils
 
         public static FactionRelationKind GetFactionRelationKind(string ID) => CustomFactionRelationKindManager.GetFactionRelationKind(ID);
 
-        public static bool CustomFactionRelationKindExist(int kind) => CustomFactionRelationKindManager.CustomFactionRelationKindExist(kind);
+        public static bool CustomFactionRelationKindExist(int kind) => CustomFactionRelationKindManager.CustomFactionRelationKindExist(kind, out _);
 
         public static bool CustomFactionRelationKindExist(FactionRelationKind kind) => CustomFactionRelationKindExist((int)kind);
+
+        public static bool TryGetCustomFactionRelationKind(int kind, out CustomFactionRelationKind custom) => CustomFactionRelationKindManager.CustomFactionRelationKindExist(kind, out custom);
+
+        public static bool TryGetCustomFactionRelationKind(FactionRelationKind kind, out CustomFactionRelationKind custom) => CustomFactionRelationKindManager.CustomFactionRelationKindExist(kind, out custom);
     }
 }

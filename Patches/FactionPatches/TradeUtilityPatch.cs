@@ -27,10 +27,8 @@ namespace Diplomacy.Patches.FactionPatches
             {
                 var relation = faction.PlayerRelationKind;
 
-                if (FactionRelationUtils.CustomFactionRelationKindExist(relation))
+                if (FactionRelationUtils.TryGetCustomFactionRelationKind(relation, out var custom))
                 {
-                    var custom = FactionRelationUtils.GetCustomFactionRelationKind(relation);
-
                     custom.PostGetPricePlayerBuy(ref __result, thing, priceFactorBuy_TraderPriceType, priceFactorBuy_JoinAs, priceGain_PlayerNegotiator, priceGain_FactionBase);
                 }
             }
